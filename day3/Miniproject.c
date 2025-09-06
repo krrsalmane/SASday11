@@ -7,6 +7,18 @@ struct Contact {
     char email[50];
 };
 
+void ajouter(struct Contact contacts[], int *n) {
+    printf("Nom: ");
+    fgets(contacts[*n].nom, 50, stdin);
+    contacts[*n].nom[strcspn(contacts[*n].nom, "\n")] = 0;
+    printf("Telephone: ");
+    fgets(contacts[*n].telephone, 20, stdin);
+    contacts[*n].telephone[strcspn(contacts[*n].telephone, "\n")] = 0;
+    printf("Email: ");
+    fgets(contacts[*n].email, 50, stdin);
+    contacts[*n].email[strcspn(contacts[*n].email, "\n")] = 0;
+    (*n)++;
+}
 
 
 
