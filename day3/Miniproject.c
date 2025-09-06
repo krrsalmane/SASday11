@@ -24,7 +24,13 @@ void ajouter(struct Contact contacts[], int *n) {
 
 
 
-
+void afficher(struct Contact contacts[], int n) {
+    for(int i = 0; i < n; i++) {
+        printf("\nNom: %s\n", contacts[i].nom);
+        printf("Telephone: %s\n", contacts[i].telephone);
+        printf("Email: %s\n", contacts[i].email);
+    }
+}
 
 
 
