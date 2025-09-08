@@ -1,55 +1,126 @@
 #include <stdio.h>
 #include <string.h>
 
-struct Contact {
-    char nom[50];
-    char telephone[20];
-    char email[50];
-};
 
-void ajouter(struct Contact contacts[], int *n) {
-    printf("Nom: ");
-    fgets(contacts[*n].nom, 50, stdin);
-    contacts[*n].nom[strcspn(contacts[*n].nom, "\n")] = 0;
-    printf("Telephone: ");
-    fgets(contacts[*n].telephone, 20, stdin);
-    contacts[*n].telephone[strcspn(contacts[*n].telephone, "\n")] = 0;
-    printf("Email: ");
-    fgets(contacts[*n].email, 50, stdin);
-    contacts[*n].email[strcspn(contacts[*n].email, "\n")] = 0;
-    (*n)++;
+#define MAX 100
+
+typedef struct
+{
+    char name[MAX];
+    char phone[12];
+    char email[MAX];
+} Contact;
+
+Contact contact[MAX];
+int countContacts = 0;
+
+
+
+
+
+void addContact()
+{
+
+    char choice;
+    do
+    {
+
+        printf("Enter name of contact :");
+        fgets(contact[countContacts].name, sizeof(contact[countContacts].name), stdin);
+        contact[countContacts].name[strcspn(contact[countContacts].name, "\n")] = '\0'; 
+
+
+        printf("Enter phone of contact :");
+        fgets(contact[countContacts].phone, sizeof(contact[countContacts].phone), stdin);
+        contact[countContacts].phone[strcspn(contact[countContacts].phone, "\n")] = '\0';
+
+        printf("Enter email of contact :");
+        fgets(contact[countContacts].email, sizeof(contact[countContacts].email), stdin);
+        contact[countContacts].email[strcspn(contact[countContacts].email, "\n")]= '\0';
+
+        countContacts++;
+
+        printf(" add another contact (y / n):");
+        scanf("%c",&choice);
+        getchar();
+
+    } while (choice == 'y' || choice== 'Y');
+
 }
 
 
 
+void displayContact()
+{
 
-
-void afficher(struct Contact contacts[], int n) {
-    for(int i = 0; i < n; i++) {
-        printf("\nNom: %s\n", contacts[i].nom);
-        printf("Telephone: %s\n", contacts[i].telephone);
-        printf("Email: %s\n", contacts[i].email);
+    printf("--------- Contact List ---------\n");
+    for (int i = 0; i < countContacts; i++)
+    {
+        printf("--------- Contact %d ---------\n", i + 1);
+        printf("| Contact name : %s \n| Contact phone : %s \n| Contact email : %s", contact[i].name, contact[i].phone, contact[i].email);
+        printf("\n------------------------\n");
     }
 }
 
 
 
-int main() {
-    struct Contact contacts[100];
-    int n = 0;
-    int choix;
-    
-    do {
-        printf("\n1. Ajouter un contact\n2. Modifier un contact\n3. Supprimer un contact\n4. Afficher tous les contacts\n5. Rechercher un contact\n6. Quitter\nVotre choix: ");
-        scanf("%d", &choix);
+int main()
+{
+
+    int choice;
+    char contactName[MAX];
+
+
+
+    do
+    {
+        printf("1 - Add Contact \n");
+        printf("2 - Diplay Contacts \n");
+        printf("3 - Delete Contact \n");
+        printf("4 -  Modify Conatct\n");
+        printf("5 - Search Contact \n");
+        printf("6 - Quit \n");
+
+        printf("Enter ur choice :\n");
+        scanf("%d",&choice);
         getchar();
+
+        if (choice < 0 || choice>6)
+        {
+            printf("Invalide choice !\n");
+        }
+
+        switch (choice)
+        {
+        case 1:
+           addContact();
+            break;
+
+        case 2:
+         displayContact();
+            break;    
+
+        case 3:
+           
+            break;
+
+        case 4:
+          
+            break; 
+            
+        case 5:
+       
+            break;  
+            
+        case 6:
+        printf("Good Bye !!");
+            break;    
         
-        if(choix == 1) ajouter(contacts, &n);
-        else if(choix == 2) modifier(contacts, n);
-        else if(choix == 3) supprimer(contacts, &n);
-        else if(choix == 4) afficher(contacts, n);
-        else if(choix == 5) rechercher(contacts, n);
-    } while(choix != 6);
+        default:
+            break;
+        }
+        
+
+    } while (choice != 6 );
     
-    return 0;
 }
